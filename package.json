@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "npm-run-all --parallel start:windows:*",
     "lint": "next lint",
+    "start": "npm-run-all --parallel start:unix:* --parallel start:windows:*",
     "start:unix:ui-dev": "next dev --turbopack",
     "start:unix:llamafile": "static/model/TinyLlama-1.1B-Chat-v1.0.F16.llamafile -ngl 9999 --embedding --server --nobrowser --port 8887",
     "setup": "npm-run-all setup:unix:llamafile setup:unix:llamafileexe",
