@@ -5,12 +5,30 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "npm-run-all --parallel start:windows:*",
+    "lint": "next lint",
+    "start:unix:ui-dev": "next dev --turbopack",
+    "start:unix:llamafile": "static/model/TinyLlama-1.1B-Chat-v1.0.F16.llamafile -ngl 9999 --embedding --server --nobrowser --port 8887",
+    "setup": "npm-run-all setup:unix:llamafile setup:unix:llamafileexe",
+    "setup:unix:llamafile": "curl --no-clobber -L -o TinyLlama-1.1B-Chat-v1.0.F16.llamafile https://huggingface.co/Mozilla/TinyLlama-1.1B-Chat-v1.0-llamafile/resolve/main/TinyLlama-1.1B-Chat-v1.0.Q4_0.llamafile?download=true",
+    "setup:unix:llamafileexe": "chmod +x static/model/TinyLlama-1.1B-Chat-v1.0.F16.llamafile",
+    "start:windows": "npm-run-all --parallel start:windows:*",
+    "start:windows:server": "nodemon server.js",
+    "start:windows:ui-dev": "next dev --turbopack",
+    "start:windows:llamafile": "static\\model\\TinyLlama-1.1B-Chat-v1.0.F16.llamafile.exe -ngl 9999 --embedding --server --nobrowser --port 8887",
+    "setup:windows": "npm-run-all setup:unix:llamafile setup:windows:*",
+    "setup:windows:llamafileexe": "ren TinyLlama-1.1B-Chat-v1.0.F16.llamafile static\\model\\TinyLlama-1.1B-Chat-v1.0.Q4_0.llamafile.exe"
   },
   "dependencies": {
+    "connect-livereload": "^0.6.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "http-proxy-middleware": "^3.0.3",
+    "livereload": "^0.9.3",
+    "next": "15.0.3",
+    "nodemon": "^3.1.7",
+    "npm-run-all": "^4.1.5",
     "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
-    "next": "15.0.3"
+    "react-dom": "19.0.0-rc-66855b96-20241106"
   }
 }
